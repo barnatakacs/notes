@@ -1,0 +1,27 @@
+{% extends "core/base.html" %}
+
+{% load static %}
+
+{% block title %}{{ note.name }}{% endblock %}
+
+{% block content %}
+    <div class="px-6 py-3 w-2/3 rounded-xl bg-white shadow-lg min-h-96 flex flex-col">
+        <div>
+            <div class="flex justify-between">
+                <h1 class="text-lg font-bold">{{ note.name }}</h1>
+                <p class="text-sm text-gray-500">{% if note.modified_at %}{{ note.modified_at }}{% else %}{{ note.created_at }}{% endif %}</p>
+            </div>
+            <p class="mt-2" style="word-break: break-word;">{{ note.description }}</p>
+        </div>
+        <div class="flex mt-auto mb-4">
+            <a href="{% url "core:edit" note.id %}" class="mr-2 rounded-xl px-4 py-2 bg-purple-400 hover:bg-purple-700 flex items-center space-x-2 w-fit">
+                <img class="h-6" src="{% static 'images/edit.png' %}" alt="Edit">
+                <p class="text-white font-bold">EDIT</p>
+            </a>
+            <a href="{% url "core:delete" note.id %}" class="rounded-xl px-4 py-2 bg-red-500 hover:bg-red-700 flex items-center space-x-2 w-fit">
+                <img class="h-6" src="{% static 'images/trash.png' %}" alt="Edit">
+                <p class="text-white font-bold">DELETE</p>
+            </a>
+        </div>
+    </div>
+{% endblock %}

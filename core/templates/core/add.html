@@ -1,0 +1,29 @@
+{% extends "core/base.html" %}
+
+{% block title %}Add Note{% endblock %}
+
+{% block content %}
+    <div class="w-2/3 rounded-xl bg-white px-6 py-3">
+        <h1 class="mb-4 font-bold text-lg">{{ title }} Note</h1>
+
+        <form method="post" action=".">
+            {% csrf_token %}
+
+            <div class="space-y-4">
+                {{ form.as_p }}
+            </div>
+
+            {% if form.errors or form.non_field_errors %}
+                <div class="mb-3 p-6 bg-red-100 rounded-xl">
+                    {% for field in form %}
+                        {{ field.errors }}
+                    {% endfor %}
+
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            <button class="rounded-full py-2 px-4 font-bold text-white bg-purple-400 hover:bg-purple-700 mt-4">ADD</button>
+        </form>
+    </div>
+{% endblock %}

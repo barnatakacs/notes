@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body class="bg-gray-100">
+    <nav class="py-6 px-6 flex justify-between items-center border-b border-gray-200 shadow-lg bg-white">
+        <a href="/">
+            <div class="flex bg-purple-400 rounded-xl pl-2 pr-4 py-2">
+                <img class="h-10" src="{% static "images/notebook.png" %}">
+                <h1 class="text-3xl font-bold text-white">Notes</h1>
+            </div>
+        </a>
+
+      
+        <div class="flex space-x-6">
+            <form method="GET" action="{% url "core:notes" %}">
+                <div class="flex">
+                    <input name="query" value="{{ query }}" placeholder="Search..." type="text" class="px-6 py-3 text-lg bg-white rounded-l-full border-y-2 border-l-2 border-gray-500 focus:outline-none">
+                    <button class="p-3 bg-purple-400 hover:bg-purple-700 rounded-r-full text-lg flex items-center justify-center border-y-2 border-r-2 border-gray-500 focus:outline-none">
+                        <img class="h-8" src="{% static "images/search.png" %}">
+                    </button>
+                </div>
+            </form>
+            <a href="{% url "core:add" %}" class="px-6 py-3 bg-purple-400 hover:bg-purple-700 rounded-full flex items-center w-fit">
+                <img class="h-6 pr-2" src="{% static "images/plus.png" %}">
+                <p class="font-bold text-lg text-white"> ADD</p>
+            </a>
+        </div>
+    </nav>
+    <div class="flex justify-center px-6 py-6">
+        {% block content %}
+        
+        {% endblock %}
+    </div>
+
+    <footer class="my-6">
+        <hr class="mx-6 mb-6 text-gray-200">
+        <div class="flex justify-center">
+            <h3 class="text-gray-400">@ All rights reserved</h3>
+        </div>
+    </footer>
+
+</body>
+</html>

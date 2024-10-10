@@ -1,0 +1,29 @@
+{% extends "core/base.html" %}
+
+{% block title %}Your Notes{% endblock %}
+
+{% block content %}
+    <div class="flex flex-col justify-center w-2/3">
+        <h1 class="px-6 pt-3 text-xl">Your Notes</h1>
+        <div class="grid grid-cols-3 gap-4 px-6 py-6">
+            {% for note in notes %}
+            <a href="{% url "core:detail" note.id %}">
+                <div class="shadow-lg rounded-xl px-4 py-3 h-44 max-h-44 bg-white">
+                    <div class="flex mb-2">
+                        {% for tag in note.tags.all %}
+                            <p class="mr-2 text-sm px-3 font-bold py-1 rounded-full bg-{{ tag.color }} text-white">{{ tag }}</p>
+                        {% endfor %}
+                    </div>
+                    <div class="mb-14">
+                        <h2 class="font-bold">{{ note.name }}</h2>
+                        <p class="truncate text-gray-500">{{ note.description }}</p>
+                    </div>
+                    <div class="flex justify-end">
+                        <p class="text-xs text-gray-500">{% if note.modified_at %}{{ note.modified_at }}{% else %}{{ note.created_at }}{% endif %}</p>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
